@@ -1,0 +1,18 @@
+@startuml
+class User {
+   id : Long
+   username : String
+   password : String
+   email : String
+}
+
+class Customer {
+    id : Long
+    firstname : String
+    lastname : String
+    creationDate : LocalDateTime
+    changeDate : LocalDateTime
+    type : CustomerType
+    readDate : LocalDateTime
+}
+@enduml
