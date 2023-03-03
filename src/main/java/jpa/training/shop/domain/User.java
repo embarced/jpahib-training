@@ -2,9 +2,11 @@ package jpa.training.shop.domain;
 
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Proxy;
 
 @Table(name = "BENUTZER")
 @Entity
+@Proxy(lazy = true)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

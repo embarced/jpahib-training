@@ -32,7 +32,8 @@ public class MainSE {
             em = emf.createEntityManager();
             em.getTransaction().begin();
 
-            User u = em.find(User.class, u1.getId());
+
+            User u = em.getReference(User.class, 3L);
             u.setPassword("geheimer");
 
             em.getTransaction().commit();
@@ -43,7 +44,8 @@ public class MainSE {
             em.getTransaction().begin();
 
             u.setEmail("d.develop@oio.de");
-            em.merge(u);
+            User mergedUser = em.merge(u);
+            System.out.println(u == mergedUser);
 
             em.getTransaction().commit();
             em.close();
