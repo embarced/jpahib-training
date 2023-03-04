@@ -4,6 +4,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import jpa.training.shop.domain.Customer;
+import jpa.training.shop.domain.CustomerType;
 import jpa.training.shop.domain.User;
 
 public class MainSE {
@@ -18,6 +20,9 @@ public class MainSE {
         tx.begin();
 
         try {
+            Customer customer = new Customer("Otto", null);
+            em.persist(customer);
+
             User u1 = new User("ddevelop", "geheim", "dieter.develop@oio.de");
             User u2 = new User("gking", "geheim", "gavin.king@jboss.com");
             User u3 = new User("sebersole", "geheim", "steve.ebersol@jboss.com");
@@ -32,6 +37,8 @@ public class MainSE {
             em = emf.createEntityManager();
             em.getTransaction().begin();
 
+            customer.setType(CustomerType.PREMUIM);
+            em.merge(customer);
 
             User u = em.getReference(User.class, 3L);
             u.setPassword("geheimer");
