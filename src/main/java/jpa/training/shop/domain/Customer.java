@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "KUNDE", schema = "PUBLIC")
@@ -33,6 +35,9 @@ public class Customer {
 
     @Transient
     private Date readDate = new Date();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<Address> addresses = new HashSet<>();
 
     public Customer() {
         super();
@@ -83,5 +88,14 @@ public class Customer {
 
     public LocalDateTime getChangeDate() {
         return changeDate;
+    }
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void addToAddresses(Address address) {
+        this.addresses.add(address);
+        address.setCustomer(this);
     }
 }
