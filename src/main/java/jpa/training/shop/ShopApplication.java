@@ -52,6 +52,10 @@ public class ShopApplication implements CommandLineRunner {
         Customer c1 = new Customer("Falk", "Sippach", u1);
         c1.addToAddresses(a1);
 
+        c1
+                .addToBillingDetails(new CreditCard(c1, "12345", CreditCardType.VISA, 12, 2023))
+                .addToBillingDetails(new BankAccount(c1, "555556666", "Spaßkasse", "4711"));
+
         Customer c2 = new Customer("Falk2", "", u2);
 
         customerRepository.save(c1);

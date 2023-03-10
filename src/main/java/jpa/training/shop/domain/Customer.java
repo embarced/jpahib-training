@@ -45,6 +45,10 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Order> purchaseOrders = new HashSet<>();
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Set<BillingDetail> billingDetails = new HashSet<>();
+
+
     public Customer() {
         super();
         creationDate = LocalDate.now();
@@ -110,5 +114,11 @@ public class Customer {
     public void addToPurchaseOrders(Order order) {
         purchaseOrders.add(order);
         order.setCustomer(this);
+    }
+
+    public Customer addToBillingDetails(BillingDetail bd) {
+        billingDetails.add(bd);
+        bd.setCustomer(this);
+        return this;
     }
 }
