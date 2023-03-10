@@ -15,6 +15,9 @@ public class User {
     private String password;
     private String email;
 
+    @OneToOne(mappedBy = "user")
+    private Customer customer;
+
     public User() {
     }
 
@@ -46,6 +49,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override

@@ -20,7 +20,7 @@ public class MainSE {
         tx.begin();
 
         try {
-            Customer customer = new Customer("Otto", "Hansen");
+            Customer customer = new Customer("Otto", "Hansen", null);
             em.persist(customer);
 
             User u1 = new User("ddevelop", "geheim", "dieter.develop@oio.de");
