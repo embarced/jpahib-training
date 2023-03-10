@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.List;
 
 @SpringBootApplication
@@ -56,9 +57,13 @@ public class ShopApplication implements CommandLineRunner {
         customerRepository.save(c1);
         customerRepository.save(c2);
 
-        Article buch1 = articleRepository.save(new Article("12345", "Buch", BigDecimal.TEN));
-        Article buch2 = articleRepository.save(new Article("12346", "Buch 2", BigDecimal.TEN));
-        Article buch3 = articleRepository.save(new Article("12347", "Buch 3", BigDecimal.TEN));
+        Article buch1 = articleRepository.save(new Article("12345", "Buch", new MonetaryAmount(BigDecimal.TEN, Currency.getInstance("EUR")), "Hörbuch"));
+        Article buch2 = articleRepository.save(new Article("12346", "Buch 2", new MonetaryAmount(BigDecimal.TEN, Currency.getInstance("USD")), "Hibernate", "JPA"));
+        Article buch3 = articleRepository.save(new Article("12347", "Buch 3", new MonetaryAmount(BigDecimal.TEN, Currency.getInstance("EUR"))));
+
+        buch1.addComment(CommentRanking.EXCELLENT, "blabla", u1);
+        buch1.addComment(CommentRanking.BAD, "blabla", u1);
+        buch1.addComment(CommentRanking.GOOD, "blabla", u2);
 
         Order o1 = new Order(c1);
         o1.addArticle(buch1, 1);

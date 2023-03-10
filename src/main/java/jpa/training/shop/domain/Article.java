@@ -1,11 +1,11 @@
 package jpa.training.shop.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 public class Article {
@@ -17,11 +17,23 @@ public class Article {
 
     private String name;
 
-    private BigDecimal price;
+    @Embedded
+    private MonetaryAmount price;
 
-    public Article(String number, String name, BigDecimal price) {
+    @ElementCollection
+    private List<Comment> comments = new ArrayList<>();
+
+    @ElementCollection
+    private List<String> alternativeNames = new ArrayList<>();
+
+    public Article(String number, String name, MonetaryAmount price, String... alternativeNames) {
         this.number = number;
         this.name = name;
         this.price = price;
+        this.alternativeNames.addAll(Arrays.asList(alternativeNames));
+    }
+
+    public void addComment(CommentRanking ranking, String text, User user) {
+        comments.add(new Comment(text, ranking, user));
     }
 }
