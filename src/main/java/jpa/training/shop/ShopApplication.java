@@ -60,10 +60,20 @@ public class ShopApplication implements CommandLineRunner {
         Article buch2 = articleRepository.save(new Article("12346", "Buch 2", BigDecimal.TEN));
         Article buch3 = articleRepository.save(new Article("12347", "Buch 3", BigDecimal.TEN));
 
-        c1.orderArticle(buch1);
-        c1.orderArticle(buch2);
+        Order o1 = new Order(c1);
+        o1.addArticle(buch1, 1);
+        o1.addArticle(buch2, 2);
+        c1.addToPurchaseOrders(o1);
 
-        c2.orderArticle(buch3);
-        c2.orderArticle(buch2);
+        Order o2 = new Order(c2);
+        o2.addArticle(buch3, 5);
+        o2.addArticle(buch2, 2);
+        c2.addToPurchaseOrders(o2);
+
+        Order o3 = new Order(c1);
+        o3.addArticle(buch1, 1);
+        o3.addArticle(buch2, 2);
+        c1.addToPurchaseOrders(o3);
+
     }
 }

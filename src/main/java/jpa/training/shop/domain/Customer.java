@@ -42,10 +42,8 @@ public class Customer {
     @OneToOne
     private User user;
 
-    @ManyToMany
-    private Set<Article> articles = new HashSet<>();
-
-
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Order> purchaseOrders = new HashSet<>();
 
     public Customer() {
         super();
@@ -109,7 +107,8 @@ public class Customer {
         address.setCustomer(this);
     }
 
-    public void orderArticle(Article article) {
-        articles.add(article);
+    public void addToPurchaseOrders(Order order) {
+        purchaseOrders.add(order);
+        order.setCustomer(this);
     }
 }
