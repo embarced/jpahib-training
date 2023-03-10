@@ -40,7 +40,9 @@ public class MainSE {
             customer.setType(CustomerType.PREMIUM);
             em.merge(customer);
 
+            System.out.println("vorher");
             User u = em.getReference(User.class, u3.getId());
+            System.out.println("nachher");
             u.setPassword("geheimer");
 
             em.getTransaction().commit();
