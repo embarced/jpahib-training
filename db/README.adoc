@@ -4,10 +4,11 @@ java -cp h2*.jar org.h2.tools.Server -help
 
 java -cp h2*.jar org.h2.tools.Server -ifNotExists
 
+* Konsole: http://localhost:8082/
 
 == H2 Datenbanken
 
 * für die Einstiegsübung: jdbc:h2:~/db/training1
-* für die Spring Boot Übungen: jdbc:h2:~/db/training
+* für die Spring Boot Übungen: jdbc:h2:~/db/training2
 * Benutzer: sa
-* Passwort: 
+* Passwort:
