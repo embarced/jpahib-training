@@ -1,0 +1,81 @@
+@startuml
+class User {
+   id : Long
+   username : String
+   password : String
+   email : String
+}
+
+class Customer {
+    id : Long
+    firstname : String
+    lastname : String
+    creationDate : LocalDateTime
+    changeDate : LocalDateTime
+    type : CustomerType
+    readDate : LocalDateTime
+}
+
+class Address {
+    id : Long
+    street : String
+    zipcode : String
+    city : String
+}
+
+class Land {
+    id : Long
+    name : String
+}
+
+class Order {
+    orderTime : LocalDateTime
+}
+
+class Article {
+    id: Long
+    number: String
+    name : String
+    price : Number
+    alternativeNames: List<String>
+}
+
+class UserComment {
+    comment: String
+    date: LocalDateTime
+}
+
+class MonetaryAmount {
+    amount: Number
+    currency: Currency
+}
+
+class BillingDetail{
+    id: Long
+    number: String
+    created: LocalDateTime
+}
+
+class BankAccount {
+    bankName:String
+    bankCode:String
+}
+
+class CreditCard {
+    type: CreditCardType
+    expiryMonth: int
+    expiryYear: int
+}
+
+User "1" -down- "1" Customer
+Customer "1" -right-> "0..*" Address : land
+Address "0..*" -right-> "1" Land : land
+Customer -down- Order
+Order -right- Article
+Article o-right-UserComment
+UserComment "0..*" --right- "1" User
+Article o-down-MonetaryAmount
+Customer "1" -right- "0..*" BillingDetail : \t\t
+BillingDetail <|-down- CreditCard
+BillingDetail <|-down- BankAccount
+@enduml

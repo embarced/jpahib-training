@@ -1,0 +1,33 @@
+@startuml
+class Customer {
+    id : Long
+    firstname : String
+    lastname : String
+    creationDate : LocalDateTime
+    changeDate : LocalDateTime
+    type : CustomerType
+    readDate : LocalDateTime
+}
+
+class BillingDetail{
+    id: Long
+    number: String
+    created: LocalDateTime
+}
+
+class BankAccount {
+    bankName:String
+    bankCode:String
+}
+
+class CreditCard {
+    type: CreditCardType
+    expiryMonth: int
+    expiryYear: int
+}
+
+Customer "1" -right- "0..*" BillingDetail : \t\t
+BillingDetail <|-down- CreditCard
+BillingDetail <|-down- BankAccount
+
+@enduml

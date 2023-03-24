@@ -1,0 +1,11 @@
+@startuml
+class Customer {
+    id : Long
+    firstname : String
+    lastname : String
+    creationDate : LocalDate
+    changeDate : LocalDateTime
+    type : CustomerType
+    readDate : LocalDateTime
+}
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+interface CustomerCustomRepository {}
+interface CustomerRepository extends JpaRepository, CustomerCustomRepository
+class CustomerCustomRepositoryImpl implements CustomerCustomRepository
+class SpringGeneratedCustomerRepository implements CustomerRepository
+SpringGeneratedCustomerRepository -right-> CustomerCustomRepositoryImpl : <<delegate>>
+@enduml

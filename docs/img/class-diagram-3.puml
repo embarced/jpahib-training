@@ -1,0 +1,26 @@
+@startuml
+class Address {
+    id : Long
+    street : String
+    zipcode : String
+    city : String
+}
+
+class Land {
+    id : Long
+    name : String
+}
+
+class Customer {
+    id : Long
+    firstname : String
+    lastname : String
+    creationDate : LocalDate
+    changeDate : LocalDateTime
+    type : CustomerType
+    readDate : LocalDateTime
+}
+
+Customer "1" -right-> "0..*" Address : address
+Address "0..*" -right-> "1" Land : land
+@enduml

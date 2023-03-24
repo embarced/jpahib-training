@@ -1,0 +1,30 @@
+@startuml
+class Article {
+    id: Long
+    number: String
+    name : String
+    price : Number
+    alternativeNames: List<String>
+}
+
+class MonetaryAmount {
+    amount: Number
+    currency: Currency
+}
+
+class UserComment {
+    comment: String
+    date: LocalDateTime
+}
+
+class User {
+   id : Long
+   username : String
+   password : String
+   email : String
+}
+
+Article o--> MonetaryAmount : \t\t
+Article o--> UserComment : \t\t
+UserComment "0..*" -left-> "1" User : \t\t
+@enduml

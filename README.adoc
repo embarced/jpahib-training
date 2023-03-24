@@ -1,0 +1,119 @@
+= JPA/Hibernate Training
+
+== Teil 1: Einstieg
+
+* Unmanaged Umgebung mit Hibernate in Java SE
+
+Die Datenbank muss im Server-Modus gestartet werden. Dann kann mit http://localhost:8082 auf die H2-Konsole zugegriffen werden.
+
+Das Datenbank-File liegt im Userverzeichnis unter: `~/db/training1`
+
+1. Datenbank starten:
+
+* ins Verzeichnis `db` wechseln
++
+[source,shell]
+----
+db> java -cp h2*.jar org.h2.tools.Server -tcpAllowOthers
+----
++
+:important-caption: ⚠️
+
+[IMPORTANT]
+.Nutzung unter Windows
+====
+Unter Windows muss man den Namen des JARs ggf. vollständig angeben: `java -cp h2-2.1.214.jar ...` angeben
+====
+
+2. In H2-Konsole mit DB verbinden
+
+* URL: jdbc:h2:~/db/training1
+* Benutzername: sa
+* Passwort: leer
+
+3. Alternativ mit beliebigem DB-Client (z. B. Database Explorer von IntelliJ) verbinden
+
+* URL: jdbc:h2:tcp://localhost/~/db/training1
+
+4. Zugriff aus Hibernate über die persistence.xml
+
+* URL: jdbc:h2:tcp://localhost/~/db/training1
+
+=== 👩‍💻 Übung 1: CRUD
+
+1. Erweitere das POJO `Person` um die notwendigen JPA-Annotationen. Als ID-Generator-Strategie kannst Du `AUTO` wählen.
++
+[plantuml,"class-diagram-1",svg]
+.POJO Person
+----
+include::docs/img/class-diagram-1.puml[]
+----
+
+2. Implementiere in der Klasse `Main` die CRUD-Operationen, jeweils in eigenen EntityManager-Instanzen (oder zwischen den CRUD-Operationen die Transaktion committen und neu starten)
+* Speichern von 3 Personen mit `persist()`
+* Laden einer der Personen, sowohl mit `find()` als auch `getReference()`
+* Updaten einer Person mit Dirty Checking (vorher laden) und `merge()` bei attachten Objekt (Transaktion geschlossen)
+* Löschen einer Person
+
+== Teil 2: Webshop mit Spring-Boot
+
+* Managed Umgebung
+
+Die Datenbank ist auch eine H2, wird aber von Spring Boot verwaltet, hochgefahren und gestartet.
+
+Das Datenbank-File liegt im Userverzeichnis unter: `~/db/training2`.
+
+Wenn die Spring Boot Webanwendung gestartet ist, kann direkt auf die H2-Konsole mit http://localhost:8080/h2-console zugegriffen werden:
+
+* URL: `jdbc:h2:~/db/training2`
+* Benutzername: sa
+* Passwort: leer
+
+Die DB-URL ist in der `application.properties` konfiguriert: `jdbc:h2:~/db/training2`
+
+=== 👩‍💻 Übung 2: Konfiguration
+
+1. Erweitere `Customer` um die notwendigen JPA-Annotationen.
++
+[plantuml,"class-diagram-2",svg]
+.Customer
+----
+include::docs/img/class-diagram-2.puml[]
+----
+
+2. Schritte:
+* Tabellenname auf `KUNDEN` und Unique-Constraint auf die beiden Spalten `VORNAME` und `NACHNAME`
+* `firstname` und `lastname` auf die Spaltennamen `VORNAME` und `NACHNAME` mit maximaler Länge von 100 Zeichen und Not-Null-Constraint setzen
+* Enumeration `CustomerType` mit den Werten `NEW, STANDARD, PREMIUM` und mit @Enumerated mappen
+* `creationDate` nicht mehr aktualisieren (`updateable=false`)
+* `changeDate` nicht beim initialen Erzeugen schreiben
+* `readDate` nur beim Lesen aus DB setzen, das Schreiben ist transient
+
+=== 👩‍💻 Übung 3: n-1 und 1-n Beziehungen
+
+1. Klassen `Address` und `Land` anlegen
++
+[plantuml,"class-diagram-3",svg]
+.n-1 und 1-n Beziehungen
+----
+include::docs/img/class-diagram-3.puml[]
+----
+
+2. Im Bootstrap 3 Länder ("DE", "AT" und "CH") erzeugen
+
+3. Unidirektionale n-1 Beziehung von Adresse zu Land
+
+4. Bidirektionale 1-n Beziehung vom Kunden zur Adresse
+
+=== 👩‍💻 Übung 4: 1-1 Beziehung
+
+1. Klasse `User anlegen`
+
++
+[plantuml,"class-diagram-4",svg]
+.1-1 Beziehung
+----
+include::docs/img/class-diagram-4.puml[]
+----
+
+2. 1-1 Beziehung vom Kunden zum Benutzer

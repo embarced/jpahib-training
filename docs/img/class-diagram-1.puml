@@ -1,0 +1,8 @@
+@startuml
+class Person {
+   id : Long
+   firstname : String
+   lastname : String
+   email : String
+}
+@enduml

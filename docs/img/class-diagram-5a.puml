@@ -1,0 +1,27 @@
+@startuml
+
+class Article {
+    id: Long
+    number: String
+    name : String
+    price : Number
+}
+
+class Customer {
+    id : Long
+    firstname : String
+    lastname : String
+    creationDate : LocalDate
+    changeDate : LocalDateTime
+    type : CustomerType
+    readDate : LocalDateTime
+}
+
+class Order {
+   id : Long
+   orderTime : LocalDateTime
+}
+
+Customer "1" -up-> "0..*" Order : \t\t
+Order "0..*" -right-> "1..*" Article : \t\t
+@enduml
